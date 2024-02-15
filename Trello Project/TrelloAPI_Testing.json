@@ -319,46 +319,6 @@
 						}
 					],
 					"id": "fa2bb17b-423d-4f33-917f-2b302b6be93e"
-				},
-				{
-					"name": "New Request",
-					"id": "3070e867-7169-405b-8773-2a645dacfce6",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{Base_URL}}/boards/65cd643812b9e196394c3979/lists?name=List_test_1&key={{api_key}}&token={{api_token}}",
-							"host": [
-								"{{Base_URL}}"
-							],
-							"path": [
-								"boards",
-								"65cd643812b9e196394c3979",
-								"lists"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "List_test_1",
-									"type": "text"
-								},
-								{
-									"key": "key",
-									"value": "{{api_key}}",
-									"type": "text"
-								},
-								{
-									"key": "token",
-									"value": "{{api_token}}",
-									"type": "text"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"id": "48f92686-f6fc-4ea4-b9df-5f49e9824b56",
