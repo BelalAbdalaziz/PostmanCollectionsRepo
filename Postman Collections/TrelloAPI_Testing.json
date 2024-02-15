@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "107a7c63-25f6-4856-813d-c7d5c3175d94",
+		"name": "Trello",
+		"description": "Trello is a popular project management tool that allows users to organize tasks, projects, and workflows using boards, lists, and cards. The API provides developers with the ability to interact with Trello boards, enabling automation, integration, and customization of Trello functionality within their applications.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Actions",
+			"item": [
+				{
+					"name": "Get an Action",
+					"id": "d0cd9413-833b-4623-8bf0-b4d819509200",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "7bcb4454-8ff8-46de-8a1c-924047b4db9c"
+		},
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "Create Board",
+					"item": [
+						{
+							"name": "Create a Board",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8bddf1ee-bc1f-474e-9dfe-4ac8d3ce8ac8",
+										"exec": [
+											"/****************************************************************\r",
+											"Req Name    : Creat Board\r",
+											"Author      : Belal Abdalaziz\r",
+											"LinkedIn    : https:www.linkedin.com/in/belal-abdalaziz/\r",
+											"ReqLink     :\r",
+											"https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-post\r",
+											"****************************************************************/\r",
+											"// Test Status Code\r",
+											"pm.test(\"Status code is 200\", function () \r",
+											"{\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//Test Response Time\r",
+											"pm.test(\"Response time is below 3 Seconds\", function () \r",
+											"{\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+											"});\r",
+											"//Test Board Name\r",
+											"pm.test(\"Creat Board\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"MyFirstBoard\");\r",
+											"    //Set an collection varible for board id\r",
+											"    var boarID = jsonData.id;\r",
+											"    pm.collectionVariables.set(\"Board1_ID\", boarID);\r",
+											"});\r",
+											"/*After Creat You Should Test By GET -> Board  */\r",
+											"/* You Should Try Test Creat board Without Send Required Data In Body Field \r",
+											"   Expected \"Error Message\" */"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "726624a7-749f-4cf4-81a2-6d01111e686e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Base_URL}}/1/boards?name={{Board1_validName}}&key={{api_key}}&token={{api_token}}",
+									"host": [
+										"{{Base_URL}}"
+									],
+									"path": [
+										"1",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "{{Board1_validName}}"
+										},
+										{
+											"key": "key",
+											"value": "{{api_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{api_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Board nameEmpty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a1bd42f-ab0d-4fe9-b932-7b0869b00bf1",
+										"exec": [
+											"/****************************************************************\r",
+											"Req Name    : Create a Board nameEmpty\r",
+											"Author      : Belal Abdalaziz\r",
+											"LinkedIn    : https:www.linkedin.com/in/belal-abdalaziz/\r",
+											"ReqLink     :\r",
+											"https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-post\r",
+											"****************************************************************/\r",
+											"// Test Status Code\r",
+											"pm.test(\"Status code is 400 Bad Request\", function () \r",
+											"{\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//Test Response Time\r",
+											"pm.test(\"Response time is below 3 Seconds\", function () \r",
+											"{\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+											"});\r",
+											"pm.test(\"Invalid Name Board\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"invalid value for name\");\r",
+											"});\r",
+											"/*After Creat You Should Test By GET -> Board  */\r",
+											"/* You Should Try Test Creat board Without Send Required Data In Body Field \r",
+											"   Expected \"Error Message\" */"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "816d8028-a1a9-4124-9b68-2f2c83efdde8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Base_URL}}/1/boards?key={{api_key}}&token={{api_token}}&name",
+									"host": [
+										"{{Base_URL}}"
+									],
+									"path": [
+										"1",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{api_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{api_token}}"
+										},
+										{
+											"key": "name",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Board nameGreaterMaxLength",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a1bd42f-ab0d-4fe9-b932-7b0869b00bf1",
+										"exec": [
+											"/****************************************************************\r",
+											"Req Name    : Create a Board nameGreaterMaxLength -> Bug in trello\r",
+											"Author      : Belal Abdalaziz\r",
+											"LinkedIn    : https:www.linkedin.com/in/belal-abdalaziz/\r",
+											"ReqLink     :\r",
+											"https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-post\r",
+											"****************************************************************/\r",
+											"// Test Status Code\r",
+											"pm.test(\"Status code is 200\", function () \r",
+											"{\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//Test Response Time\r",
+											"pm.test(\"Response time is below 3 Seconds\", function () \r",
+											"{\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+											"});\r",
+											"pm.test(\"Creat Board with greater max length\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"Invalid name\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "18a0e761-1b27-45d1-a21d-e11d5927db24",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Base_URL}}/1/boards?name={{Board_greaterMaxLength}}&key={{api_key}}&token={{api_token}}",
+									"host": [
+										"{{Base_URL}}"
+									],
+									"path": [
+										"1",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "{{Board_greaterMaxLength}}"
+										},
+										{
+											"key": "key",
+											"value": "{{api_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{api_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Board",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a1bd42f-ab0d-4fe9-b932-7b0869b00bf1",
+										"exec": [
+											"/****************************************************************\r",
+											"Req Name    : Get Board -> For make sure the board is created successfully \r",
+											"Author      : Belal Abdalaziz\r",
+											"LinkedIn    : https:www.linkedin.com/in/belal-abdalaziz/\r",
+											"ReqLink     :\r",
+											"https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-post\r",
+											"****************************************************************/\r",
+											"// Test Status Code\r",
+											"pm.test(\"Status code is 200\", function () \r",
+											"{\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//Test Response Time\r",
+											"pm.test(\"Response time is below 3 Seconds\", function () \r",
+											"{\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+											"});\r",
+											"pm.test(\"Get Board\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    //Verify The Board Name\r",
+											"    pm.expect(jsonData.name).to.eql(\"MyFirstBoard\");\r",
+											"    //Verify Board Id\r",
+											"    var BoardId = pm.collectionVariables.get(\"Board1_ID\");\r",
+											"    pm.expect(jsonData.id).to.eql(BoardId);\r",
+											"});\r",
+											"/*After Creat You Should Test By GET -> Board  */\r",
+											"/* You Should Try Test Creat board Without Send Required Data In Body Field \r",
+											"   Expected \"Error Message\" */"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "5751240e-0474-45eb-8580-433848028b86",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Base_URL}}/1/boards/{{Board1_ID}}?key={{api_key}}&token={{api_token}}",
+									"host": [
+										"{{Base_URL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{Board1_ID}}"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{api_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{api_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "fa2bb17b-423d-4f33-917f-2b302b6be93e"
+				},
+				{
+					"name": "New Request",
+					"id": "3070e867-7169-405b-8773-2a645dacfce6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Base_URL}}/boards/65cd643812b9e196394c3979/lists?name=List_test_1&key={{api_key}}&token={{api_token}}",
+							"host": [
+								"{{Base_URL}}"
+							],
+							"path": [
+								"boards",
+								"65cd643812b9e196394c3979",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "List_test_1",
+									"type": "text"
+								},
+								{
+									"key": "key",
+									"value": "{{api_key}}",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "{{api_token}}",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "48f92686-f6fc-4ea4-b9df-5f49e9824b56",
+			"description": "**Trello Board REST API**\n\nThe Trello Board REST API is a powerful interface for managing Trello boards programmatically.\n\n**Endpoints:**\n\n1. **GET /boards**: Retrieve a list of all boards associated with the authenticated user.\n2. **GET /boards/{boardId}**: Retrieve details of a specific board identified by its unique ID.\n3. **POST /boards**: Create a new board with specified parameters.\n4. **PUT /boards/{boardId}**: Update the details of a specific board.\n5. **DELETE /boards/{boardId}**: Delete a board identified by its unique ID.\n    \n\n**Request Parameters:**\n\n- `boardId`: The unique identifier for the board.\n    \n\n**Response:**\n\nThe API returns responses in JSON format, containing relevant data based on the requested operation. Successful responses include board details, lists, cards, and other relevant information. Error responses provide appropriate HTTP status codes along with error messages to aid in troubleshooting.\n\n**Authentication:**\n\nAccess to the Trello Board REST API requires authentication via API keys and tokens. Developers must obtain valid credentials from Trello and include them in their requests for authorization.\n\n**Usage:**\n\nDevelopers can leverage the Trello Board REST API to automate board management tasks, integrate Trello functionality into their applications, and extend Trello's capabilities to suit specific business requirements. This includes creating, updating, and deleting boards programmatically, as well as retrieving board data for analysis or reporting purposes.\n\n**Testing Considerations:**\n\n- Validate that each endpoint behaves as expected for various scenarios, including valid and invalid input data.\n- Test error handling by sending requests with incorrect parameters, unauthorized access attempts, or simulated server errors.\n- Evaluate the API's performance under different load conditions to ensure responsiveness and scalability.\n- Verify that security measures, such as authentication and authorization, are effectively enforced to protect user data.\n- Use mock data or test accounts to isolate and replicate specific testing scenarios without affecting production data."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fe455923-2d4a-45c9-a749-98b24534d5e7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8f2c9e28-6f33-4164-9374-6a1dab3f7080",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Board1_validName",
+			"value": "MyFirstBoard",
+			"type": "string"
+		},
+		{
+			"key": "Board_greaterMaxLength",
+			"value": "TheMagnificentBoardOfAweInspiringWonderAndUnparalleledIngenuityComprisingAnArrayOfUnrivalledIdeasAndExquisiteInnovationsDesignedToElevateAndEnrichTheHumanExperienceInEveryConceivableWayBringingTogetherTheFinestMindsAndTalentsFromAcrossTheGlobeToCollaborateAndCreateMasterpiecesOfImaginationAndIngenuityThatPushTheBoundariesOfWhatIsPossibleAndInspireTheWorldToReachNewHeightsOfAchievementAndExcellenceForGenerationsToComeSoBeholdThisMonumentToHumanCreativityAndInnovationAndLetItServeAsATestamentToTheEndlessPotentialOfTheHumanSpiritAndTheUnstoppableProgressOfOurSpeciesTowardsATrulyBrighterFutureFilledWithPromiseAndHopeForAll",
+			"type": "string"
+		},
+		{
+			"key": "Board1_ID",
+			"value": ""
+		}
+	]
+}
